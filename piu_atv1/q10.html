@@ -1,0 +1,113 @@
+<!--
+Q10 – Reescreva o programa da questão Q9 de maneira que peça como entrada os dados do usuário até que o usuário digite 
+todos os valores de tipos válidos. Aproveite os valores válidos já digitados (não os peça novamente). 
+Combine throw com  try.. catch.
+Obs.: Nesta questão, você precisará usar o navegador para testar.
+Salve seu código como q10.html.
+Envolva seu script na tag <script> ... </script>
+Para fazer entrada de dados do usuário, use prompt('mensagem'). 
+Ex.:
+q10.html
+<script>
+    let nome = prompt('Digite o nome:')
+    console.log('Olá, ' + nome) // ou alert('Olá, ' + nome)
+</script>
+
+Abrindo o script acima no navegador, ele exibe uma janelinha pedindo o nome e depois exibe no console o que foi digitado.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 10</title>
+</head>
+<body>
+    
+    <script>
+
+        function validarNome(nome) {
+            if (!isNaN(nome)) {
+                throw "O nome não pode ser número.";
+            }
+
+            if (typeof nome != "string") {
+                throw "O nome deve ser uma string.";
+            } 
+        }
+
+        function validarIdade(idade) {
+            if (isNaN(idade)) {
+                throw "A idade precisa ser um número.";
+            }  
+            if (!Number.isInteger(Number(idade))) {
+                throw "A idade precisa ser um número inteiro.";
+            }
+        }
+
+        function validarFoiADisney(foiADisney) {
+            if (foiADisney !== "true" && foiADisney !== "false") {
+                throw "Essa informação precisa ser true/false."
+            }
+        }
+
+        function dadosPessoais(nome, idade, jaFoiADisney) {
+            let dados = {"nome": nome, "idade": idade, "JaFoiPDisney": jaFoiADisney}
+            return JSON.stringify(dados)
+        }
+
+        var nome, idade, jaFoiADisney;
+
+        while (true) {
+            try {
+                if (nome == null) {
+                    nome = prompt("Digite seu nome: ");
+                    validarNome(nome);
+                    break;
+                }
+            } catch (error) {
+                alert(error);
+                nome = null;
+            }
+        }
+
+        while (true) {
+            try {
+                if (idade == null) {
+                    idade = prompt("Digite sua idade: ");
+                    idade = Number(idade);
+                    validarIdade(idade);
+                    break;
+                }
+            } catch (error) {
+                alert(error);
+                idade = null;
+            }
+        }
+
+        while (true) {
+            try {
+                if (jaFoiADisney == null) {
+                    jaFoiADisney = prompt("Já foi à Disney? Responda com true/false. ");
+                    validarFoiADisney(jaFoiADisney);
+                    break;
+                }
+            } catch (error) {
+                alert(error)
+                jaFoiADisney = null;
+            }
+        }
+
+        const dados = {
+            nome: nome, 
+            idade: idade,
+            jaFoiADisney: jaFoiADisney
+        };
+
+        alert("Dados: " + JSON.stringify(dados));
+
+    </script>
+
+</body>
+</html>
